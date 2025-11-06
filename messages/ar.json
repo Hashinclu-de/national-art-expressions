@@ -1,0 +1,34 @@
+{
+  "common": {
+    "title": "وطني إبداعي",
+    "description": "وطني إبداعي - NAE",
+    "welcome": "مرحباً بكم في وطني إبداعي",
+    "language": "اللغة",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "presentationMode": "وضع العرض",
+    "openInNewWindow": "فتح في نافذة جديدة",
+    "previous": "السابق",
+    "next": "التالي",
+    "play": "تشغيل",
+    "pause": "إيقاف مؤقت",
+    "close": "إغلاق"
+  },
+  "categories": {
+    "3dModeling": "النمذجة ثلاثية الأبعاد",
+    "animation": "الرسوم المتحركة",
+    "gameDesign": "تصميم الألعاب",
+    "videoGameDesign": "تصميم ألعاب الفيديو",
+    "webDesign": "تصميم المواقع"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "gallery": "المعرض",
+    "contact": "اتصل بنا"
+  },
+  "footer": {
+    "copyright": "© 2025 وطني إبداعي. جميع الحقوق محفوظة.",
+    "followUs": "تابعنا"
+  }
+}

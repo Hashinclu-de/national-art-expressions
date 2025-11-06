@@ -1,0 +1,34 @@
+{
+  "common": {
+    "title": "National Art Expressions",
+    "description": "National Art Expressions - NAE",
+    "welcome": "Welcome to National Art Expressions",
+    "language": "Language",
+    "english": "English",
+    "arabic": "Arabic",
+    "presentationMode": "Presentation Mode",
+    "openInNewWindow": "Open in New Window",
+    "previous": "Previous",
+    "next": "Next",
+    "play": "Play",
+    "pause": "Pause",
+    "close": "Close"
+  },
+  "categories": {
+    "3dModeling": "3D Modeling",
+    "animation": "Animation",
+    "gameDesign": "Game Design",
+    "videoGameDesign": "Video Game Design",
+    "webDesign": "Web Design"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© 2025 National Art Expressions. All rights reserved.",
+    "followUs": "Follow Us"
+  }
+}
