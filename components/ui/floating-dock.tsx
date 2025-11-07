@@ -51,7 +51,7 @@ const FloatingDockMobile = ({
       {/* Icon-only navigation for mobile */}
       <div className="flex items-center gap-1 bg-primary-dark/40 rounded-xl px-1.5 py-1 flex-1 justify-center">
         {items.map((item) => (
-          <Link key={item.title} href={item.href}>
+          <Link key={item.href} href={item.href}>
             <button
               className="p-2 rounded-lg bg-transparent text-white border border-white/30 hover:bg-primary-light hover:text-primary-dark transition-all"
               title={item.title}
@@ -92,7 +92,7 @@ const FloatingDockDesktop = ({
       {/* Grouped category buttons with darker background */}
       <div className="flex items-center gap-2 bg-primary-dark/40 rounded-xl px-2 py-1.5">
         {items.map((item) => (
-          <PillButton key={item.title} {...item} />
+          <PillButton key={item.href} {...item} />
         ))}
       </div>
 

@@ -4,6 +4,7 @@ import path from 'path';
 
 export interface Artwork {
   no: string;
+  image: string;
   artSubPathway: string;
   requirement: string;
   driveLink: string;
@@ -37,6 +38,7 @@ export async function loadArtworks(): Promise<CategoryArtworks[]> {
       complete: (results) => {
         const artworks: Artwork[] = results.data.map((row: any) => ({
           no: row['No'] || '',
+          image: row['Image'] || '',
           artSubPathway: row['Art Sub Pathway'] || '',
           requirement: row['Requirement'] || '',
           driveLink: row['Drive-Full link'] || '',
@@ -54,7 +56,7 @@ export async function loadArtworks(): Promise<CategoryArtworks[]> {
         }));
 
         // Group artworks by category (case-insensitive)
-        const categories = ['3D Modeling', 'Animation', 'Game Design', 'Video Game Design', 'Web Design'];
+        const categories = ['3D Modeling', 'Animation', 'Game Design - Scratch', 'Game Design', 'Web Design'];
         const groupedArtworks: CategoryArtworks[] = categories.map(category => ({
           category,
           artworks: artworks.filter(artwork =>

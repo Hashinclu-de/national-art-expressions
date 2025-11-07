@@ -60,13 +60,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="w-full text-center py-8 relative z-10">
-        <p className="text-xs sm:text-sm md:text-base text-primary-dark/60">
-          © 2025 {t("title")}
-        </p>
-      </footer>
-
       {/* Navigation Dock with Language Switcher */}
       <NavDock />
     </div>

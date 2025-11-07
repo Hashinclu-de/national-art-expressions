@@ -3,15 +3,15 @@
  *
  * How to add thumbnails:
  * 1. Take a screenshot of the artwork
- * 2. Save as: /public/thumbnails/{artworkNo}.jpg (or .png, .webp)
- * 3. Example: /public/thumbnails/5008.jpg
+ * 2. Save as: /public/thumbnails/{artworkNo}.PNG (or .jpg, .png, .webp)
+ * 3. Example: /public/thumbnails/508.PNG
  *
  * If no local thumbnail exists, falls back to Unsplash placeholder
  */
 
 export function getThumbnailPath(artworkNo: string | number, category?: string): string {
-  // Primary: Try local thumbnail
-  return `/thumbnails/${artworkNo}.jpg`;
+  // Try PNG first (current format), will fallback to placeholder if not found
+  return `/thumbnails/${artworkNo}.PNG`;
 }
 
 export function getPlaceholderImage(category?: string, artworkNo?: string | number): string {

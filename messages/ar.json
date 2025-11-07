@@ -21,9 +21,10 @@
   "categories": {
     "3dModeling": "النمذجة ثلاثية الأبعاد",
     "animation": "الرسوم المتحركة",
-    "gameDesign": "تصميم الألعاب",
-    "videoGameDesign": "تصميم ألعاب الفيديو",
-    "webDesign": "تصميم المواقع"
+    "scratchGames": "ألعاب سكراتش",
+    "otherGames": "ألعاب أخرى",
+    "webDesign": "تصميم المواقع",
+    "gameDesign": "تصميم الألعاب"
   },
   "nav": {
     "home": "الرئيسية",

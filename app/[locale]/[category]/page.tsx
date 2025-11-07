@@ -9,8 +9,8 @@ import { loadArtworks } from "@/lib/artworks";
 const categoryMap: { [key: string]: { name: string; key: string } } = {
   "3d-modeling": { name: "3D Modeling", key: "3dModeling" },
   "animation": { name: "Animation", key: "animation" },
-  "game-design": { name: "Game Design", key: "gameDesign" },
-  "video-game-design": { name: "Video Game Design", key: "videoGameDesign" },
+  "scratch-games": { name: "Game Design - Scratch", key: "scratchGames" },
+  "other-games": { name: "Game Design", key: "otherGames" },
   "web-design": { name: "Web Design", key: "webDesign" },
 };
 
@@ -87,7 +87,9 @@ export default async function CategoryPage({
       <section className="w-full relative z-10">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 lg:py-16 text-center">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary-mid">
-            {tCategories(categoryInfo.key)}
+            {categoryInfo.key === 'scratchGames' || categoryInfo.key === 'otherGames'
+              ? tCategories('gameDesign')
+              : tCategories(categoryInfo.key)}
           </h2>
         </div>
       </section>

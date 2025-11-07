@@ -28,14 +28,14 @@ export default function NavDock() {
       href: `/${locale}/animation`,
     },
     {
-      title: t("gameDesign"),
+      title: t("scratchGames"),
       icon: <Gamepad2 className="h-full w-full" />,
-      href: `/${locale}/game-design`,
+      href: `/${locale}/scratch-games`,
     },
     {
-      title: t("videoGameDesign"),
+      title: t("otherGames"),
       icon: <Gamepad className="h-full w-full" />,
-      href: `/${locale}/video-game-design`,
+      href: `/${locale}/other-games`,
     },
     {
       title: t("webDesign"),

@@ -21,9 +21,10 @@
   "categories": {
     "3dModeling": "3D Modeling",
     "animation": "Animation",
-    "gameDesign": "Game Design",
-    "videoGameDesign": "Video Game Design",
-    "webDesign": "Web Design"
+    "scratchGames": "Scratch Games",
+    "otherGames": "Other Games",
+    "webDesign": "Web Design",
+    "gameDesign": "Game Design"
   },
   "nav": {
     "home": "Home",

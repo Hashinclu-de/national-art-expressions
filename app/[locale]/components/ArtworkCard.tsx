@@ -70,7 +70,9 @@ export default function ArtworkCard({ artwork, category }: ArtworkCardProps) {
                 }
               }}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-              unoptimized={usePlaceholder} // Don't optimize Unsplash images
+              quality={85}
+              loading="lazy"
+              unoptimized={usePlaceholder} // Don't optimize external Unsplash images
             />
           ) : (
             // Final fallback to gradient if both thumbnail and placeholder fail
