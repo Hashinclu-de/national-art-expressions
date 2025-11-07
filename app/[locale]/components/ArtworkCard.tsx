@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Artwork } from "@/lib/artworks";
 import { ExternalLink } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ArtworkModal from "./ArtworkModal";
 import { detectArtworkType } from "@/lib/artworkTypeDetector";
 import { getThumbnailPath, getPlaceholderImage } from "@/lib/thumbnails";
@@ -18,6 +18,7 @@ interface ArtworkCardProps {
 export default function ArtworkCard({ artwork, category }: ArtworkCardProps) {
   const locale = useLocale();
   const isArabic = locale === "ar";
+  const t = useTranslations("common");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [thumbnailError, setThumbnailError] = useState(false);
   const [usePlaceholder, setUsePlaceholder] = useState(false);
@@ -117,15 +118,21 @@ export default function ArtworkCard({ artwork, category }: ArtworkCardProps) {
         </div>
 
         {/* Content - No card background */}
-        <div className="pt-3 sm:pt-4 space-y-1">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <h3 className="text-sm sm:text-base font-bold text-primary-dark line-clamp-2">
+        <div className="pt-3 sm:pt-4 space-y-2">
+          <div>
+            <h3 className="text-sm sm:text-base font-bold text-primary-dark line-clamp-2 mb-1">
               {title}
             </h3>
-            <span className="text-sm sm:text-base text-primary-dark/40 font-normal">by</span>
-            <p className="text-sm sm:text-base text-primary-dark/60 font-medium">
-              {studentName}
-            </p>
+            <div className="flex items-start gap-x-2">
+              <span className="text-sm sm:text-base text-primary-dark/40 font-normal">{t("by")}</span>
+              <div className="flex flex-col gap-y-0.5">
+                {studentName.split(',').map((name, index) => (
+                  <p key={index} className="text-sm sm:text-base text-primary-dark/60 font-medium">
+                    {name.trim()}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
