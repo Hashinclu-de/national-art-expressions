@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { Artwork } from "@/lib/artworks";
-import { Maximize2 } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import ArtworkModal from "./ArtworkModal";
 import { detectArtworkType } from "@/lib/artworkTypeDetector";
 import { getThumbnailPath, getPlaceholderImage } from "@/lib/thumbnails";
+import { detectPlatform } from "@/lib/platformHandler";
 import Image from "next/image";
 
 interface ArtworkCardProps {
@@ -30,20 +31,27 @@ export default function ArtworkCard({ artwork, category }: ArtworkCardProps) {
   const artworkTypeInfo = detectArtworkType(artwork.driveLink, artwork.requirement);
   const thumbnailPath = getThumbnailPath(artwork.no, category);
   const placeholderImage = getPlaceholderImage(category, artwork.no);
+  const platformConfig = detectPlatform(artwork.driveLink, artwork.requirement);
 
   const handleClick = () => {
-    // Always open in modal - let the modal handle embedding vs fallback
-    setIsModalOpen(true);
+    // Check if content can be embedded
+    if (!platformConfig.canEmbed) {
+      // Non-embeddable content - open directly in new tab
+      window.open(artwork.driveLink, '_blank', 'noopener,noreferrer');
+    } else {
+      // Embeddable content - open in modal
+      setIsModalOpen(true);
+    }
   };
 
   return (
     <>
-      <div
-        onClick={handleClick}
-        className="group relative block break-inside-avoid mb-4 sm:mb-6 bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
-      >
+      <div className="group flex flex-col cursor-pointer">
         {/* Thumbnail Preview Area */}
-        <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+        <div
+          onClick={handleClick}
+          className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+        >
           {!thumbnailError ? (
             // Try local thumbnail first, then Unsplash placeholder
             <Image
@@ -80,49 +88,53 @@ export default function ArtworkCard({ artwork, category }: ArtworkCardProps) {
             </div>
           )}
 
-          {/* Overlay for hover effect */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+          {/* Gradient Overlay for hover effect - bottom to top */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/0 to-transparent group-hover:from-black/80 group-hover:via-black/40 group-hover:to-transparent transition-all duration-300" />
 
-          {/* Artwork Number Badge (always visible) */}
-          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">
-            <span className="text-xs sm:text-sm font-bold text-white">
-              #{artwork.no}
-            </span>
-          </div>
+          {/* Hover Content */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4 sm:p-6">
+            <div className="space-y-2">
+              {/* Title and Icon */}
+              <div className="flex items-end justify-between gap-4">
+                <h3 className="text-white text-base sm:text-lg md:text-xl font-bold line-clamp-2 flex-1">
+                  {title}
+                </h3>
+                <div className="flex-shrink-0">
+                  <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                </div>
+              </div>
 
-          {/* Hover Icon */}
-          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex gap-2">
-            <div className="bg-white/90 text-primary-dark p-1.5 sm:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-              <Maximize2 className="h-3 w-3 sm:h-4 sm:w-4" />
+              {/* Medium tag */}
+              {medium && (
+                <div>
+                  <span className="inline-block px-2 py-1 bg-white/90 text-primary-dark rounded text-xs font-medium uppercase tracking-wide">
+                    {medium}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-3 sm:p-4 md:p-5">
-          <h3 className="text-base sm:text-lg md:text-xl font-bold text-primary-dark mb-2 line-clamp-2">
-            {title}
-          </h3>
-
-          <div className="space-y-1 sm:space-y-1.5 text-xs sm:text-sm">
-            <p className="text-primary-dark/70">
-              <span className="font-medium">{schoolName}</span>
-            </p>
-
-            <p className="text-primary-dark/60 line-clamp-2">
+        {/* Content - No card background */}
+        <div className="pt-3 sm:pt-4 space-y-1">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <h3 className="text-sm sm:text-base font-bold text-primary-dark line-clamp-2">
+              {title}
+            </h3>
+            <span className="text-sm sm:text-base text-primary-dark/40 font-normal">by</span>
+            <p className="text-sm sm:text-base text-primary-dark/60 font-medium">
               {studentName}
             </p>
+          </div>
 
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="inline-block px-2 py-1 bg-primary-light text-primary-dark rounded-md text-xs">
-                {grade}
-              </span>
-              {medium && (
-                <span className="inline-block px-2 py-1 bg-primary-mid/30 text-primary-dark rounded-md text-xs">
-                  {medium}
-                </span>
-              )}
-            </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-block px-2 py-1 bg-primary-mid/30 text-primary-dark rounded text-xs font-medium">
+              {schoolName}
+            </span>
+            <span className="inline-block px-2 py-1 bg-primary-light/30 text-primary-dark rounded text-xs font-medium">
+              {grade}
+            </span>
           </div>
         </div>
       </div>

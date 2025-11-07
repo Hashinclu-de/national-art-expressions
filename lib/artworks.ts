@@ -53,11 +53,13 @@ export async function loadArtworks(): Promise<CategoryArtworks[]> {
           mediumArabic: row['Medium Arabic'] || '',
         }));
 
-        // Group artworks by category
+        // Group artworks by category (case-insensitive)
         const categories = ['3D Modeling', 'Animation', 'Game Design', 'Video Game Design', 'Web Design'];
         const groupedArtworks: CategoryArtworks[] = categories.map(category => ({
           category,
-          artworks: artworks.filter(artwork => artwork.artSubPathway === category)
+          artworks: artworks.filter(artwork =>
+            artwork.artSubPathway.toLowerCase() === category.toLowerCase()
+          )
         }));
 
         resolve(groupedArtworks);

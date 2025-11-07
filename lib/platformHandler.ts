@@ -154,9 +154,8 @@ export function detectPlatform(url: string, requirement?: string): PlatformConfi
     };
   }
 
-  // Websites - Usually work with iframe
-  if (urlLower.includes('site123.me') || urlLower.includes('gamma.site') ||
-      urlLower.includes('wixsite.com') || urlLower.includes('wordpress.com')) {
+  // Websites - Only specific trusted platforms
+  if (urlLower.includes('site123.me') || urlLower.includes('gamma.site')) {
     return {
       type: 'website',
       strategy: ['iframe'],
@@ -167,10 +166,10 @@ export function detectPlatform(url: string, requirement?: string): PlatformConfi
     };
   }
 
-  // Default
+  // All other websites and unknown URLs - Don't embed
   return {
     type: 'other',
-    strategy: ['iframe', 'screenshot', 'external'],
+    strategy: ['external'],
     canEmbed: false,
     icon: '',
     color: 'from-gray-400 to-gray-500',

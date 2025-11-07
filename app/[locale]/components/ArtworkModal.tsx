@@ -135,15 +135,13 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
             className="fixed bottom-0 left-0 right-0 z-[101] bg-white rounded-t-3xl shadow-2xl"
             style={{ height: "98vh" }}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-primary-mid/30">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary-dark line-clamp-1 flex-1 pr-4">
-                {title}
-              </h3>
-              <div className="flex items-center gap-2">
+            {/* Content Area - Full Height */}
+            <div className="h-full w-full relative bg-gray-50 rounded-t-3xl overflow-hidden">
+              {/* Floating Action Buttons */}
+              <div className="absolute top-4 right-4 z-30 flex items-center gap-2">
                 <button
                   onClick={handleRefresh}
-                  className="flex-shrink-0 p-2 hover:bg-primary-light rounded-full transition-colors"
+                  className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
                   aria-label="Refresh"
                   title="Refresh"
                 >
@@ -151,7 +149,7 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
                 </button>
                 <button
                   onClick={handleOpenInNewTab}
-                  className="flex-shrink-0 p-2 hover:bg-primary-light rounded-full transition-colors"
+                  className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
                   aria-label="Open in new tab"
                   title="Open in new tab"
                 >
@@ -159,16 +157,12 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
                 </button>
                 <button
                   onClick={onClose}
-                  className="flex-shrink-0 p-2 hover:bg-primary-light rounded-full transition-colors"
+                  className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
                   aria-label="Close"
                 >
                   <X className="h-5 w-5 sm:h-6 sm:w-6 text-primary-dark" />
                 </button>
               </div>
-            </div>
-
-            {/* Content Area */}
-            <div className="h-[calc(100%-80px)] w-full relative bg-gray-50">
               {!iframeError ? (
                 <>
                   {/* Loading Indicator - Hide when loaded */}
@@ -183,7 +177,7 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
                     key={iframeKey}
                     id="artwork-iframe"
                     src={embedUrl}
-                    className="w-full h-full border-0 relative z-10"
+                    className="w-full h-full border-0 relative z-10 rounded-t-3xl"
                     title={title}
                     // Remove sandbox for Figma and other embeddable platforms to avoid restrictions
                     {...(platformConfig.canEmbed ? {} : {
