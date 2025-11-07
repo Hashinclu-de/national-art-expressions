@@ -94,24 +94,24 @@ export default function ArtworkCard({ artwork, category }: ArtworkCardProps) {
           {/* Hover Content */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4 sm:p-6">
             <div className="space-y-2">
-              {/* Title and Icon */}
-              <div className="flex items-end justify-between gap-4">
-                <h3 className="text-white text-base sm:text-lg md:text-xl font-bold line-clamp-2 flex-1">
+              {/* Title */}
+              <div>
+                <h3 className="text-white text-base sm:text-lg md:text-xl font-bold line-clamp-2">
                   {title}
                 </h3>
+              </div>
+
+              {/* Medium tag and Icon - parallel */}
+              <div className="flex items-center justify-between gap-4">
+                {medium && (
+                  <span className="inline-block px-2 py-1 bg-white/90 text-primary-dark rounded text-xs font-medium uppercase tracking-wide">
+                    {medium}
+                  </span>
+                )}
                 <div className="flex-shrink-0">
                   <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
-
-              {/* Medium tag */}
-              {medium && (
-                <div>
-                  <span className="inline-block px-2 py-1 bg-white/90 text-primary-dark rounded text-xs font-medium uppercase tracking-wide">
-                    {medium}
-                  </span>
-                </div>
-              )}
             </div>
           </div>
         </div>
