@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales } from "@/i18n/request";
-import NavDock from "./components/NavDock";
 import "../globals.css";
 
 // Gopher font for English text
@@ -89,7 +88,6 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider messages={messages}>
           {children}
-          <NavDock />
         </NextIntlClientProvider>
       </body>
     </html>

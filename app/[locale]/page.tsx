@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import ArtworkCard from "./components/ArtworkCard";
-import PresentationButton from "./components/PresentationButton";
+import NavDock from "./components/NavDock";
 import { loadArtworks } from "@/lib/artworks";
 
 export default async function Home() {
@@ -23,16 +23,13 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-white pb-32">
-      {/* Presentation Mode Button */}
-      <PresentationButton artworks={allArtworks} />
-
       {/* Header */}
       <header className="w-full border-b border-primary-light">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 py-4 sm:py-6 flex items-center">
           <div className="flex-1"></div>
-          {/* <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-dark text-center">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-dark text-center">
             {t("title")}
-          </h1> */}
+          </h1>
           <div className="flex-1 flex justify-end">
             <LanguageSwitcher />
           </div>
@@ -73,6 +70,9 @@ export default async function Home() {
           © 2025 {t("title")}
         </p>
       </footer>
+
+      {/* Navigation Dock with Presentation and Language Switcher */}
+      <NavDock artworks={allArtworks} />
     </div>
   );
 }

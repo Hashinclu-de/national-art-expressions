@@ -22,13 +22,12 @@ export default function PresentationButton({ artworks }: PresentationButtonProps
     <>
       <button
         onClick={() => setIsPresentationMode(true)}
-        className={`fixed top-4 z-50 flex items-center gap-2 px-4 py-3 bg-primary-dark text-primary-light rounded-lg shadow-lg hover:bg-primary-dark/90 transition-all hover:scale-105 ${
+        className={`fixed top-4 z-50 flex items-center justify-center p-3 bg-primary-dark text-primary-light rounded-lg shadow-lg hover:bg-primary-dark/90 transition-all hover:scale-105 ${
           isArabic ? "right-4" : "left-4"
         }`}
         title={t("presentationMode")}
       >
         <Presentation className="h-5 w-5" />
-        <span className="hidden sm:inline font-medium">{t("presentationMode")}</span>
       </button>
 
       <PresentationMode
