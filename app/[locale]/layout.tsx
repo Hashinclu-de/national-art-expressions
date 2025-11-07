@@ -84,7 +84,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir}>
       <body
-        className={`${gopher.variable} ${graphikArabic.variable} antialiased`}
+        className={`${gopher.variable} ${graphikArabic.variable} antialiased bg-white`}
       >
         <NextIntlClientProvider messages={messages}>
           {children}

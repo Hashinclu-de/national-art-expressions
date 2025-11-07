@@ -1,14 +1,16 @@
 import { getTranslations } from "next-intl/server";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import NavDock from "./components/NavDock";
+import WaveBackground from "./components/WaveBackground";
 
 export default async function Home() {
   const t = await getTranslations("common");
 
   return (
-    <div className="min-h-screen bg-white pb-32">
+    <div className="min-h-screen pb-32 relative">
+      <WaveBackground />
       {/* Header */}
-      <header className="w-full">
+      <header className="w-full relative z-10">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10 flex items-center">
           <div className="flex-1"></div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-dark text-center">
@@ -21,7 +23,7 @@ export default async function Home() {
       </header>
 
       {/* Welcome Section */}
-      <section className="w-full">
+      <section className="w-full relative z-10">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-32 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-dark mb-4">
             {t("welcome")}
@@ -36,7 +38,7 @@ export default async function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full text-center py-8">
+      <footer className="w-full text-center py-8 relative z-10">
         <p className="text-xs sm:text-sm md:text-base text-primary-dark/60">
           © 2025 {t("title")}
         </p>

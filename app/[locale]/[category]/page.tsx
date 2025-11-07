@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import ArtworkCard from "../components/ArtworkCard";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import WaveBackground from "../components/WaveBackground";
 import { loadArtworks } from "@/lib/artworks";
 
 // Map URL slugs to category names and translation keys
@@ -44,9 +45,10 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="min-h-screen bg-white pb-32">
+    <div className="min-h-screen pb-32 relative">
+      <WaveBackground />
       {/* Header */}
-      <header className="w-full">
+      <header className="w-full relative z-10">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10 flex items-center justify-between">
           <div className="flex-1"></div>
           <div className="text-center">
@@ -64,7 +66,7 @@ export default async function CategoryPage({
       </header>
 
       {/* Artworks Grid */}
-      <section className="w-full">
+      <section className="w-full relative z-10">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 lg:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {categoryData.artworks.map((artwork) => (
@@ -78,12 +80,6 @@ export default async function CategoryPage({
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="w-full text-center py-8">
-        <p className="text-xs sm:text-sm md:text-base text-primary-dark/60">
-          © 2025 {t("title")}
-        </p>
-      </footer>
     </div>
   );
 }
