@@ -56,13 +56,25 @@ export async function loadArtworks(): Promise<CategoryArtworks[]> {
         }));
 
         // Group artworks by category (case-insensitive)
-        const categories = ['3D Modeling', 'Animation', 'Game Design - Scratch', 'Game Design', 'Web Design'];
-        const groupedArtworks: CategoryArtworks[] = categories.map(category => ({
-          category,
-          artworks: artworks.filter(artwork =>
-            artwork.artSubPathway.toLowerCase() === category.toLowerCase()
-          )
-        }));
+        const categories = ['3D Modeling', 'Animation', 'Game Design', 'Web Design'];
+        const groupedArtworks: CategoryArtworks[] = categories.map(category => {
+          if (category === 'Game Design') {
+            // Combine both "Game Design - Scratch" and "Game Design" into one category
+            return {
+              category,
+              artworks: artworks.filter(artwork =>
+                artwork.artSubPathway.toLowerCase() === 'game design - scratch' ||
+                artwork.artSubPathway.toLowerCase() === 'game design'
+              )
+            };
+          }
+          return {
+            category,
+            artworks: artworks.filter(artwork =>
+              artwork.artSubPathway.toLowerCase() === category.toLowerCase()
+            )
+          };
+        });
 
         resolve(groupedArtworks);
       },

@@ -7,7 +7,6 @@ import {
   Box,
   Film,
   Gamepad2,
-  Gamepad,
   Globe,
 } from "lucide-react";
 
@@ -28,14 +27,9 @@ export default function NavDock() {
       href: `/${locale}/animation`,
     },
     {
-      title: t("scratchGames"),
+      title: t("gameDesign"),
       icon: <Gamepad2 className="h-full w-full" />,
-      href: `/${locale}/scratch-games`,
-    },
-    {
-      title: t("otherGames"),
-      icon: <Gamepad className="h-full w-full" />,
-      href: `/${locale}/other-games`,
+      href: `/${locale}/game-design`,
     },
     {
       title: t("webDesign"),
