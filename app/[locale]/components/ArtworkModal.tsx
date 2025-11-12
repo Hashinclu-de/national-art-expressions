@@ -178,13 +178,13 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
 
                   {/* Local Video Player for Playwriting */}
                   {platformConfig.type === 'local-video' ? (
-                    <div className="w-full h-full flex items-center justify-center bg-black rounded-t-3xl">
+                    <div className="w-full h-full bg-black rounded-t-3xl">
                       <video
                         key={iframeKey}
                         controls
                         autoPlay
                         loop
-                        className="max-w-full max-h-full"
+                        className="w-full h-full object-contain"
                         onLoadedData={() => {
                           console.log(`✓ Video loaded for local-video`);
                           setIframeLoaded(true);
