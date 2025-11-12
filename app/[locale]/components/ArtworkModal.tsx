@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { X, ExternalLink, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getEmbedUrl } from "@/lib/embedUtils";
-import { detectPlatform } from "@/lib/platformHandler";
+import { detectPlatform, getLocalVideoPath } from "@/lib/platformHandler";
 import { getThumbnailPath } from "@/lib/thumbnails";
 import Image from "next/image";
 
@@ -139,22 +139,26 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
             <div className="h-full w-full relative bg-gray-50 rounded-t-3xl overflow-hidden">
               {/* Floating Action Buttons */}
               <div className="absolute top-4 right-4 z-30 flex items-center gap-2">
-                <button
-                  onClick={handleRefresh}
-                  className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
-                  aria-label="Refresh"
-                  title="Refresh"
-                >
-                  <RefreshCw className="h-5 w-5 sm:h-6 sm:w-6 text-primary-dark" />
-                </button>
-                <button
-                  onClick={handleOpenInNewTab}
-                  className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
-                  aria-label="Open in new tab"
-                  title="Open in new tab"
-                >
-                  <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6 text-primary-dark" />
-                </button>
+                {platformConfig.canEmbed && platformConfig.type !== 'local-video' && (
+                  <button
+                    onClick={handleRefresh}
+                    className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
+                    aria-label="Refresh"
+                    title="Refresh"
+                  >
+                    <RefreshCw className="h-5 w-5 sm:h-6 sm:w-6 text-primary-dark" />
+                  </button>
+                )}
+                {!platformConfig.canEmbed && (
+                  <button
+                    onClick={handleOpenInNewTab}
+                    className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
+                    aria-label="Open in new tab"
+                    title="Open in new tab"
+                  >
+                    <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6 text-primary-dark" />
+                  </button>
+                )}
                 <button
                   onClick={onClose}
                   className="flex-shrink-0 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full transition-all shadow-lg"
@@ -166,34 +170,54 @@ export default function ArtworkModal({ isOpen, onClose, url, title, requirement,
               {!iframeError ? (
                 <>
                   {/* Loading Indicator - Hide when loaded */}
-                  {!iframeLoaded && (
+                  {!iframeLoaded && platformConfig.type !== 'local-video' && (
                     <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-dark via-primary-mid to-primary-light z-20">
                       <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent"></div>
                     </div>
                   )}
 
-                  {/* Iframe */}
-                  <iframe
-                    key={iframeKey}
-                    id="artwork-iframe"
-                    src={embedUrl}
-                    className="w-full h-full border-0 relative z-10 rounded-t-3xl"
-                    title={title}
-                    // Remove sandbox for Figma and other embeddable platforms to avoid restrictions
-                    {...(platformConfig.canEmbed ? {} : {
-                      sandbox: "allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-presentation"
-                    })}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                    allowFullScreen
-                    onLoad={() => {
-                      console.log(`✓ Iframe onLoad triggered for ${platformConfig.type}`);
-                      setIframeLoaded(true);
-                    }}
-                    onError={() => {
-                      console.log(`✗ Iframe onError triggered for ${platformConfig.type}`);
-                      handleIframeError();
-                    }}
-                  />
+                  {/* Local Video Player for Playwriting */}
+                  {platformConfig.type === 'local-video' ? (
+                    <div className="w-full h-full flex items-center justify-center bg-black rounded-t-3xl">
+                      <video
+                        key={iframeKey}
+                        controls
+                        autoPlay
+                        loop
+                        className="max-w-full max-h-full"
+                        onLoadedData={() => {
+                          console.log(`✓ Video loaded for local-video`);
+                          setIframeLoaded(true);
+                        }}
+                      >
+                        <source src={getLocalVideoPath(url)} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  ) : (
+                    /* Iframe for other platforms */
+                    <iframe
+                      key={iframeKey}
+                      id="artwork-iframe"
+                      src={embedUrl}
+                      className="w-full h-full border-0 relative z-10 rounded-t-3xl"
+                      title={title}
+                      // Remove sandbox for Figma and other embeddable platforms to avoid restrictions
+                      {...(platformConfig.canEmbed ? {} : {
+                        sandbox: "allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-presentation"
+                      })}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                      allowFullScreen
+                      onLoad={() => {
+                        console.log(`✓ Iframe onLoad triggered for ${platformConfig.type}`);
+                        setIframeLoaded(true);
+                      }}
+                      onError={() => {
+                        console.log(`✗ Iframe onError triggered for ${platformConfig.type}`);
+                        handleIframeError();
+                      }}
+                    />
+                  )}
                 </>
               ) : (
                 // Fallback UI when iframe is blocked

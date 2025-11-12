@@ -13,6 +13,7 @@ export type PlatformType =
   | 'scratch'
   | 'website'
   | 'spatial'
+  | 'local-video'
   | 'other';
 
 export type RenderStrategy =
@@ -41,6 +42,18 @@ export interface PlatformConfig {
 export function detectPlatform(url: string, requirement?: string): PlatformConfig {
   const urlLower = url.toLowerCase();
   const reqLower = requirement?.toLowerCase() || '';
+
+  // Local Playwriting Videos
+  if (urlLower.startsWith('nae - playwriting content')) {
+    return {
+      type: 'local-video',
+      strategy: ['video-preview'],
+      canEmbed: true,
+      icon: '',
+      color: 'from-amber-400 to-yellow-400',
+      apiAvailable: false,
+    };
+  }
 
   // TinkerCAD - Can export 3D models
   if (urlLower.includes('tinkercad.com')) {
@@ -208,4 +221,11 @@ export function extractFigmaInfo(url: string): { fileId: string; nodeId?: string
 export function extractCodeOrgId(url: string): string | null {
   const match = url.match(/projects\/\w+\/([^/?]+)/);
   return match ? match[1] : null;
+}
+
+/**
+ * Get local video path for playwriting content
+ */
+export function getLocalVideoPath(identifier: string): string {
+  return `/playwriting/${identifier}.mp4`;
 }

@@ -56,7 +56,7 @@ export async function loadArtworks(): Promise<CategoryArtworks[]> {
         }));
 
         // Group artworks by category (case-insensitive)
-        const categories = ['3D Modeling', 'Animation', 'Game Design', 'Web Design'];
+        const categories = ['3D Modeling', 'Playwriting', 'Game Design', 'Web Design'];
         const groupedArtworks: CategoryArtworks[] = categories.map(category => {
           if (category === 'Game Design') {
             // Combine both "Game Design - Scratch" and "Game Design" into one category

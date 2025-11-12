@@ -1,4 +1,4 @@
-export type ArtworkType = 'website' | 'scratch' | 'tinkercad' | 'drive' | 'figma' | 'unity' | 'spatial' | 'code' | 'other';
+export type ArtworkType = 'website' | 'scratch' | 'tinkercad' | 'drive' | 'figma' | 'unity' | 'spatial' | 'code' | 'local-video' | 'other';
 
 export interface ArtworkTypeInfo {
   type: ArtworkType;
@@ -10,6 +10,16 @@ export interface ArtworkTypeInfo {
 export function detectArtworkType(url: string, requirement?: string): ArtworkTypeInfo {
   const urlLower = url.toLowerCase();
   const reqLower = requirement?.toLowerCase() || '';
+
+  // Local Playwriting Videos
+  if (urlLower.startsWith('nae - playwriting content')) {
+    return {
+      type: 'local-video',
+      canEmbed: true,
+      icon: '',
+      color: 'from-amber-400 to-yellow-400'
+    };
+  }
 
   // Website builders - can embed
   if (urlLower.includes('site123.me') || urlLower.includes('gamma.site') ||

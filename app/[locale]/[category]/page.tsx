@@ -8,7 +8,7 @@ import { loadArtworks } from "@/lib/artworks";
 // Map URL slugs to category names and translation keys
 const categoryMap: { [key: string]: { name: string; key: string } } = {
   "3d-modeling": { name: "3D Modeling", key: "3dModeling" },
-  "animation": { name: "Animation", key: "animation" },
+  "playwriting": { name: "Playwriting", key: "playwriting" },
   "game-design": { name: "Game Design", key: "gameDesign" },
   "web-design": { name: "Web Design", key: "webDesign" },
 };

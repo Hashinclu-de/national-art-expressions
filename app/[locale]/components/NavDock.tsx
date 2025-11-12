@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import {
   Box,
-  Film,
+  ScrollText,
   Gamepad2,
   Globe,
 } from "lucide-react";
@@ -22,9 +22,9 @@ export default function NavDock() {
       href: `/${locale}/3d-modeling`,
     },
     {
-      title: t("animation"),
-      icon: <Film className="h-full w-full" />,
-      href: `/${locale}/animation`,
+      title: t("playwriting"),
+      icon: <ScrollText className="h-full w-full" />,
+      href: `/${locale}/playwriting`,
     },
     {
       title: t("gameDesign"),
